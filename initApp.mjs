@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { stationsRouter } from "./features/stations/stations.router.mjs";
+import { usersRouter } from "./features/users/users.router.mjs";
 
 export const initApp = () => {
   const app = express();
@@ -14,6 +15,8 @@ export const initApp = () => {
   });
 
   app.use("/stations", stationsRouter);
+  app.use("/users", usersRouter);
 
+  
   return app;
 };

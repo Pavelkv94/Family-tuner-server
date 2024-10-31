@@ -3,7 +3,6 @@ import { userService } from "../features/users/users.service.mjs";
 import { helloMessage } from "../contants/constants.mjs";
 
 const token = process.env.TG_BOT_TOKEN || "8045482326:AAFApZ5gqb_Ri-F-x22pMtJ5QoWcGHUeuYk";
-const webAppUrl = process.env.WEB_APP_URL || "https://3db5-178-172-238-4.ngrok-free.app";
 
 if (!token) {
   throw new Error("Telegram Bot Token not provided");
@@ -12,6 +11,8 @@ const bot = new TelegramBot(token, { polling: true });
 
 const handleStartCommand = async (chatId, first_name, username) => {
   const isUserExist = await userService.findUser(chatId);
+
+  const webAppUrl = `${process.env.WEB_APP_URL}/${chatId}`;
 
   if (!isUserExist) {
     await userService.addUser({
@@ -36,7 +37,6 @@ export const runBot = () => {
     const first_name = msg.from.first_name;
     const username = msg.from.username;
 
-    console.log(msg);
     try {
       if (text === "/start") {
         await handleStartCommand(chatId, first_name, username);
