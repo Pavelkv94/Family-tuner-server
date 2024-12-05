@@ -1,0 +1,23 @@
+services:
+  family-tuner-server:
+    container_name: family-tuner-server
+    networks:
+      - mongo_mongo-network
+    build:
+      context: .
+    environment:
+      DB_NAME: $DB_NAME
+      POST: $PORT
+      TG_BOT_TOKEN: $TG_BOT_TOKEN
+      WEB_APP_URL: $WEB_APP_URL
+      MONGO_URL: $MONGO_URL
+    ports:
+      - 5004:5000
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+networks:
+  mongo_mongo-network:
+    external: true

@@ -1,0 +1,5 @@
+DB_NAME=Family-radio
+PORT=5000
+MONGO_URL=
+TG_BOT_TOKEN=7805288729:AAFoWl7dfhQ0nPhypKMV5qJjkiHgrNe2Qyw
+WEB_APP_URL=https://family-radio-tg-mini-app.netlify.app
