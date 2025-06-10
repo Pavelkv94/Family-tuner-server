@@ -430,13 +430,9 @@ const stations = [
 
 import { MongoClient } from "mongodb";
 
-// Define the MongoDB connection URL
-const url = 'mongodb://localhost:27017'; // Update with your database URL
-const dbName = 'Family-radio'; // Replace with your database name
-
 // Connect to MongoDB
 async function run() {
-    const client = new MongoClient(url);
+    const client = new MongoClient(process.env.MONGO_URL);
 
     try {
         // Connect to the MongoDB server
@@ -444,7 +440,7 @@ async function run() {
         console.log('Connected to MongoDB');
 
         // Access the database and collection
-        const db = client.db(dbName);
+        const db = client.db(process.env.DB_NAME);
         const collection = db.collection('stations'); // Replace with your collection name
 
         // Insert multiple objects into the collection
