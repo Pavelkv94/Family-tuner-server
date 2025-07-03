@@ -2,7 +2,7 @@ services:
   family-tuner-server:
     container_name: family-tuner-server
     networks:
-      - mongo_mongo-network
+      - family-tuner_network
     build:
       context: .
     environment:
@@ -13,12 +13,25 @@ services:
       MONGO_URL: $MONGO_URL
     ports:
       - 5004:5000
-    deploy:
-      resources:
-        limits:
-          memory: 512M
     restart: unless-stopped
 
+  family-tuner-mongodb:
+    image: mongo:latest
+    container_name: family-tuner-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - family-tuner-mongodb-data:/data/db
+    networks:
+      - family-tuner_network
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: $MONGO_USERNAME
+      MONGO_INITDB_ROOT_PASSWORD: $MONGO_PASSWORD
+    restart: unless-stopped
+
+volumes:
+  family-tuner-mongodb-data:
+
 networks:
-  mongo_mongo-network:
-    external: true
+  family-tuner_network:
+    name: family-tuner_network

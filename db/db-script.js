@@ -431,28 +431,25 @@ const stations = [
 import { MongoClient } from "mongodb";
 
 // Connect to MongoDB
-async function run() {
-    const client = new MongoClient(process.env.MONGO_URL);
+export async function seed() {
+  const client = new MongoClient(process.env.MONGO_URL);
 
-    try {
-        // Connect to the MongoDB server
-        await client.connect();
-        console.log('Connected to MongoDB');
+  try {
+    // Connect to the MongoDB server
+    await client.connect();
+    console.log('Connected to MongoDB');
 
-        // Access the database and collection
-        const db = client.db(process.env.DB_NAME);
-        const collection = db.collection('stations'); // Replace with your collection name
+    // Access the database and collection
+    const db = client.db(process.env.DB_NAME);
+    const collection = db.collection('stations'); // Replace with your collection name
 
-        // Insert multiple objects into the collection
-        const result = await collection.insertMany(stations);
-        console.log('Inserted documents:', result.insertedIds);
-    } catch (err) {
-        console.error('Error inserting documents:', err);
-    } finally {
-        // Close the connection
-        await client.close();
-    }
+    // Insert multiple objects into the collection
+    const result = await collection.insertMany(stations);
+    console.log('Inserted documents:', result.insertedIds);
+  } catch (err) {
+    console.error('Error inserting documents:', err);
+  } finally {
+    // Close the connection
+    await client.close();
+  }
 }
-
-// Run the function
-run().catch(console.error);

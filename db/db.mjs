@@ -1,4 +1,5 @@
 import { MongoClient } from "mongodb";
+import { seed } from "./db-script.js";
 
 export const db = {
   client: {},
@@ -11,6 +12,8 @@ export const db = {
       await this.client.connect();
       await this.getDbName().command({ ping: 1 });
       console.log("connected to MongoDB");
+      await seed();
+      console.log("seeded MongoDB");
     } catch (error) {
       await this.client.close();
       console.log(`Mongo connect Error: ${error}`);
