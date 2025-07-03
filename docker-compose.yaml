@@ -13,6 +13,8 @@ services:
       MONGO_URL: $MONGO_URL
     ports:
       - 5004:5000
+    depends_on:
+      - family-tuner-mongodb
     restart: unless-stopped
 
   family-tuner-mongodb:
